@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html id="html" lang="nl">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>OSSC Profiles</title>
+		<style>
+			a {
+				text-decoration: none;
+			}
+
+			body {
+				font-family: Arial;
+			}
+
+			body * {
+				box-sizing: border-box;
+			}
+
+			body {
+				color: #484848;
+			}
+
+            a {
+                color: #1563a0;
+            }
+            
+            p {
+                margin-top: 0;
+            }
+            
+			html, body {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+			}
+            
+            #content {
+                padding: 10px;
+            }
+			
+            .logo {
+                width: 100%;
+                max-width: 400px;
+                margin: 0 auto;
+                margin-bottom: 30px;
+                display: block;
+            }
+            
+            h3 {
+                color: #4f7978;
+            }
+            
+			.button {
+				width: 300px;
+				height: 48px;
+				line-height: 48px;
+				text-align: center;
+				color: white;
+				font-weight: bold;
+				background-color: #3ed23e;
+				box-shadow: 0 0 5px 0px #00000096;
+				border-radius: 5px;
+				cursor: pointer;
+                margin: 10px 0;
+			}
+            
+            input.profile_name {
+                margin-top: 20px;
+                margin-left: 6px;
+                max-width: 180px;
+                height: 26px;
+                width: 90%;
+            }
+            
+            .setting_group {
+                border-bottom: 1px solid #e2e2e2;
+                padding-bottom: 20px;
+            }
+            
+            .settings.hidden{
+                display: none;
+            }
+            
+            .setting {
+                display: inline-block;
+                width: 160px;
+                margin: 2px;
+                padding: 12px;
+                min-height: 120px;
+                vertical-align: top;
+                border: 2px solid #f3f1f1;
+            }
+            
+            .setting input[type="range"],.setting select {
+                width: 100%;
+            }
+            .setting .plus_minus {
+                text-align: center;
+                font-size: 20px;
+            }
+            
+            .setting .plus_minus span {
+                border: 1px solid #dedede;
+                vertical-align: middle;
+                margin-right: 4px;
+                min-width: 24px;
+                line-height: 18px;
+                display: inline-block;
+                cursor: pointer;
+                user-select: none;
+            }
+            
+            .video_mode.hidden {
+                display: none;
+            }
+            
+            .setting label {
+                display: block;
+            }
+            
+            #settings_container {
+                transition: opacity 0.2s;
+            }
+            
+            #settings_container.fadeOut {
+                opacity: 0;
+            }
+            
+            #profile_select {
+                margin: 12px 0;
+            }
+            
+            #profile_select .profile {
+                border: 1px solid black;
+                margin: 5px;
+                padding: 0 10px;
+                font-size: 28px;
+                display: inline-block;
+                cursor: pointer;
+            }
+            
+            #profile_select .profile.selected {
+                background-color: #b4e8ff;
+                border: 2px solid #009de2;
+            }
+            
+            #profile_select .profile.disabled {
+                background-color: #a5a5a5;
+            }
+            
+            #profile_select .profile.selected.disabled {
+                background-color: #7599a9;
+            }
+            
+            .move_profile {
+                margin: 16px 0;
+            }
+            
+            #text_import {
+                margin-top: 30px;
+                width: 100%;
+                max-width: 500px;
+                height: 240px;
+            }
+            
+            #import_button {
+                display: inline-block;
+            }
+            
+            #import_msg {
+                display: inline;
+                font-size: 14px;
+                font-weight: bold;
+                transition: opacity 0.2s;
+                opacity: 0;
+            }
+            
+            #import_msg.show {
+                opacity: 1;
+            }
+            
+            .loader {
+                border: 6px solid #f3f3f3;
+                border-top: 6px solid #3498db;
+                border-radius: 50%;
+                width: 48px;
+                height: 48px;
+                margin: 0 auto;
+                display: none;
+                animation: spin 2s linear infinite;
+            }
+            
+            .loader.visible {
+                display: block;
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            
+            /* The switch - the box around the slider */
+            .switch {
+              position: relative;
+              display: inline-block;
+              width: 50px;
+              height: 26px;
+              vertical-align: middle;
+              margin-left: 5px;
+            }
+
+            /* Hide default HTML checkbox */
+            .switch input {
+              opacity: 0;
+              width: 0;
+              height: 0;
+            }
+
+            /* The slider */
+            .slider {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: #ccc;
+              -webkit-transition: .4s;
+              transition: .4s;
+            }
+
+            .slider:before {
+              position: absolute;
+              content: "";
+              height: 18px;
+              width: 18px;
+              left: 5px;
+              bottom: 4px;
+              background-color: white;
+              -webkit-transition: .4s;
+              transition: .4s;
+            }
+
+            input:checked + .slider {
+              background-color: #2196F3;
+            }
+
+            input:focus + .slider {
+              box-shadow: 0 0 1px #2196F3;
+            }
+
+            input:checked + .slider:before {
+              -webkit-transform: translateX(21px);
+              -ms-transform: translateX(21px);
+              transform: translateX(21px);
+            }
+
+            /* Rounded sliders */
+            .slider.round {
+              border-radius: 34px;
+            }
+
+            .slider.round:before {
+              border-radius: 50%;
+            }
+            
+            .howto_header {
+                margin-bottom: 5px;
+            }
+		</style>
+	</head>
+
+	<body>
+		<div id="content">
+            <img class="logo" src="OSSC_logo.png">
+            <div id="firmware_select"></div>
+            <h2 class="title">Profile #</h2>
+            <div id="loader" class="loader"></div>
+            <div id="profile_select"></div>
+            <div class="move_profile">
+                <span>Move this profile to</span>
+                <select id="move_profile"></select>
+             </div>
+            
+            <div id="settings_container"></div>
+            <div id="save_bin_button" class="button">Save profiles.bin</div>
+            <div id="save_json_button" class="button">Save all profiles json</div>
+            <div id="save_current_json_button" class="button">Save current profile json</div>
+
+            <textarea id="text_import"></textarea>
+            <p>Drag and drop the json file or paste json contents in the field above to import. A json file with a single profile will be imported to the currently selected profile.</p>
+            <div id="import_button" class="button">Import json</div>
+            <div id="import_msg">Import done!</div>
+            
+            <h1>Howto:</h1>
+            
+            <h2 class="howto_header">Import settings to OSSC</h2>
+            <p>Use the &apos;Save profiles.bin&apos; button and then write the profiles.bi7n to the sdcard the same way as a firmware update. Then on the OSSC go to the Settings opt. and choose Import settings. Save the profile.json file for later so you can quickly export a profiles.bin file after a firmware update.</p>
+            
+            <h2 class="howto_header">Convert binary file to JSON</h2>
+            <p>Select the firmware version with the drop down at the top. Drag and drop the binary file with profiles onto the page. If profiles for the selected firmware version were found then they were copied to the JSON field. Then use the &apos;Import json&apos; button to import the profiles.</p>
+            
+            <h2 class="howto_header">Skip profile during importing on the OSSC</h2>
+            <p>Disable the &apos;Enabled&apos; switch on a profile to skip the profile during importing on the OSSC. If disabled it will still be included in the json file.</p>
+            
+            <h2 class="howto_header">Change to new firmware version</h2>
+            <p>Choose the target firmware version with the drop down at the top. Copy and paste the contents of the json file that you saved earlier into the text field and press the &apos;Import json&apos; button. After that you can save the profiles.bin and json files for the new firmware version.</p>
+            
+            <h2 class="howto_header">Change settings after exporting</h2>
+            <p>If you need to change some settings later then just copy and paste the json file into the text field and press the &apos;Import json&apos; button. Change your settings and then press the &apos;Save profiles.json&apos; button.</p>
+            
+            <h3>Forum</h3>
+            <a target="_blanc" href="https://www.videogameperfection.com/forums/topic/profile-settings-web-app/">https://www.videogameperfection.com/forums/topic/profile-settings-web-app/</a>
+        </div>
+		
+		<script src="jquery.js"></script>
+        <script src="ossc.20220103.js"></script>
+        <script src="v105.js"></script>
+        <script src="v089.js"></script>
+	</body>
+</html>
