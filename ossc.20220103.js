@@ -2227,6 +2227,8 @@ var ossc_settings_data = [];
 
 var ossc_version_data = {
         versions: [
+            "v107",
+            "v106",
             "v105",
             "v089",
             "v088",
@@ -2236,7 +2238,7 @@ var ossc_version_data = {
             "v083",
             "v082",
         ],
-        current_version: "v105",
+        current_version: "v107",
 };
 
 var OSSC;
