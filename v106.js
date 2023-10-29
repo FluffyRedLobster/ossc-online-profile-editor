@@ -265,7 +265,8 @@ ossc_data = function () {
         { link_av:  ['uint8'] },
     ];
     
-    // Must be total of 282 (bits?)
+    // Must be total of 282 (bits?)  Note "something" entries - I'm sure there must be a better solution 
+    // than this but this works to get the other values aligned into the right slot.
     const Mode_data_struct = [ 
         { name:  ['string', 10] },
         { vic: ['uint16']},
